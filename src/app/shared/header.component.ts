@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 
 import { routing } from "../app.routes";
+import { AuthService } from "./auth.service";
 
 @Component({
     selector: 'my-header',
@@ -17,7 +18,7 @@ import { routing } from "../app.routes";
                         <li><a [routerLink]="['protected']">Protected</a></li>
 
                     </ul>
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right" *ngIf="isAuth()">
 
                         <li><a>Logout</a></li>
                     </ul>
@@ -29,4 +30,9 @@ import { routing } from "../app.routes";
     `
 })
 export class HeaderComponent {
+  constructor(private authService: AuthService) {}
+
+  isAuth() {
+    return this.authService.isAuthenticated();
+  }
 }
